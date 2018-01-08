@@ -121,7 +121,7 @@ def _validate_conf(conf):
 def _merge_env(settings):
     """Merge settings setup from env and/or scrapy settings."""
     settings.update({
-        k: v for k, v in os.environ.iteritems()
+        k: v for k, v in os.environ.items()
         if k in MANDATORY_SETTINGS and k not in settings
     })
 
@@ -131,7 +131,7 @@ def _make_list(value, sep=','):
     return value.split(sep) if isinstance(value, str) else value
 
 
-class DatadogExtension(object):
+class DatadogExtension:
 
     def __init__(self, settings, stats):
         # properly identify the job
@@ -205,7 +205,7 @@ class DatadogExtension(object):
                                      EXIT_MAPPING['default'])
         metrics.append(collect('exit_code', exit_code))
 
-        if 'finish_time' in job_stats.keys() and 'start_time' in job_stats.keys():
+        if 'finish_time' in job_stats and 'start_time' in job_stats:
             elapsed_time = job_stats['finish_time'] - job_stats['start_time']
             metrics.append(collect('elapsed_time', elapsed_time.seconds))
 
