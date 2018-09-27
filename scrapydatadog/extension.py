@@ -57,7 +57,6 @@ DEFAULT_CUSTOM_METRICS = [
 ]
 DEFAULT_MISSING = 0
 DEFAULT_DD_PREFIX = 'spider.stats'
-DEFAULT_DD_HOST_NAME = 'app.scrapinghub.com'
 
 # unix-like exit codes from Scrapy finish state conventions
 # read more: http://help.scrapinghub.com/scrapy-cloud/job-outcomes
@@ -139,7 +138,6 @@ class DatadogExtension:
 
         self.dd_api_key = settings['DATADOG_API_KEY']
         self.dd_app_key = settings['DATADOG_APP_KEY']
-        self.dd_host_name = settings.get('DATADOG_HOST_NAME', DEFAULT_DD_HOST_NAME)
         self.dd_metric_prefix = settings.get('DATADOG_METRICS_PREFIX', DEFAULT_DD_PREFIX)
 
         # extend default behaviors
@@ -175,9 +173,10 @@ class DatadogExtension:
     def commit(self, metrics):
         # initialize API client
         logger.debug('Configure API client with credentials')
-        options = {'host_name': self.dd_host_name,
-                   'api_key': self.dd_api_key,
-                   'app_key': self.dd_app_key}
+        options = {
+            'api_key': self.dd_api_key,
+            'app_key': self.dd_app_key
+        }
         datadog.initialize(**options)
         logger.info('Client initialized, will now send metrics: {}'.format(metrics))
 

@@ -30,8 +30,6 @@ settings of your jobs:
 - `DATADOG_CUSTOM_METRICS`: Sub list of metrics to send to Datadog
 - `DATADOG_METRICS_PREFIX`: What prefix you want to apply to all of your metrics,
   _e.g._: `kp.`
-- `DATADOG_HOST_NAME`: The hostname you want your metrics to be associated
-  with. _e.g._: `app.scrapinghub.com`.
 
 
 ## How it works
